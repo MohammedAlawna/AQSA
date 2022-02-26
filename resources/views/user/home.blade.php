@@ -173,6 +173,7 @@
   @include('user.doctor')
 
   @include('user.news')
+  
 
   @include('user.appointment')
   
