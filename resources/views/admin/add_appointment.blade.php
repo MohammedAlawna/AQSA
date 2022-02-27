@@ -38,9 +38,9 @@
         <!-- partial -->
   
 
-        <div class="container-fluid page-body-wrapper">
+        <div class="container-fluid page-body-wrapper row">
            
-        <div class="container" align="center" style="padding-top: 100px">
+    
 
         @if(session()->has('message'))
             <div class="alert alert-success">
@@ -48,32 +48,54 @@
                 {{session()->get('message')}}
             </div>
 
-            @endif
+            @endif 
 
-        <form action="{{url('upload_doctor')}}" method="POST">
+            <form action="{{url('upload_appointment')}}" method="POST">
             @csrf
+                <div>
 
-      
-        <div style="padding: 15px">
-            <label>Full Name</label>
-            <input type="text" name="name" style="color:black" placeholder="write dotcor name" required="">
+        <div class="col-md-6" style="padding:5px">
+        <label>Patient Name</label>
+            <input type="text" name="patientname" style="color:black" placeholder="write patient name" required="">
         </div>
 
-        <div style="padding: 15px">
+
+            <div class="col-md-6" style="padding:5px">
             <label>Phone Number</label>
-            <input type="number" name="number" style="color:black" placeholder="write phone number" required="">
+            <input type="number" name="patientnumber" style="color:black" placeholder="write phone number" required="">
+            </div>
+
+
+
+        <div class="col-md-6" style="padding:5px">
+            <label>ID</label>
+            <input type="number" name="idcard" style="color:black" placeholder="write email" required="">
         </div>
 
-        <div style="padding: 15px">
-            <label>Email</label>
-            <input type="text" name="email" style="color:black" placeholder="write email" required="">
+
+        <div class="col-md-6" style="padding:5px">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob"
+       value="2002-02-22"
+       min="1990-01-01" max="3000-12-31" style="color: black">
         </div>
 
-      
+        <div class="col-md-6" style="padding:5px">
+        <label for="adate">Appointment Date</label>
+        <input type="date" id="adate" name="adate"
+       value="2022-02-22"
+       min="1990-01-01" max="3000-12-31" style="color: black">
+        </div>
 
-        <div style="padding: 15px">
-            <label>Speciality</label>
-           <select name="speciality" style="color:black; width:200px" required="">
+        <div class="col-md-6" style="padding:5px">
+        <label for="appt">Appointment Time</label>
+        <input type="time" id="appt" name="appt"
+        min="00:00" max="23:59" style="color: black" required>
+        </div>
+
+        <div class="col-md-6" style="padding:5px">
+            <label>Department</label>
+           <select name="department" style="color:black; width:200px" required="">
                <option>--Select--</option>
                <option value="GeneralSurgery">General Surgery.</option>
                <option value="GeneralMedicine">General Medicine.</option>
@@ -83,22 +105,41 @@
                <option value="Cardiology">Cardiology.</option>
                <option value="Pediatrics">Pediatrics.</option>
                <option value="Dentist">Dentist.</option>
-               <option value="LabStaff">Lab Staff.</option>
+               <option value="Laboratory">Laboratory</option>
                <option value="Internal Medicine">Internal Medicine.</option>
 
            </select>
         </div>
 
-        <div style="padding: 15px">
+        <div class="col-md-6" style="padding:5px">
+            <label>Doctor</label>
+           <select name="_doctor" style="color:black; width:200px" required="">
+               <option>--Select--</option>
+               <option value="JafarAlawna">Dr. Jafar Alawna</option>
+               <option value="OmarAlawna">Dr. Omar Alawna.</option>
+               <option value="SaadLahham">Dr. Saad Lahham</option>
+               <option value="MohammedAlawna">Prof. Mohammed Alawna.</option>
+       
+
+           </select>
+        </div>
+
+
+        <div style="padding:5px">
+        <div class="md-form" >
+        <label for="form7">Additional Info</label>
+        <textarea id="form7" name="info" class="md-textarea form-control" rows="3"
+         style="background-color:white;color:black" placeholder="enter more info like the reason of appointment"></textarea>
+        
+        </div>
+
+  
+    </div>
+    <div style="padding: 15px">
            
-          <input type="submit" class="btn btn-success">
-        </div>
-
-
-        </form>
-
-        </div>
-
+           <input type="submit" class="btn btn-success">
+         </div>
+</form>
 </div>
 
     <!-- container-scroller -->

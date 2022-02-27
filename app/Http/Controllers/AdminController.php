@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use App\Models\Appointment;
 
 class AdminController extends Controller
 {
     public function addview() {
         return view('admin.add_doctor');
+    }
+
+    public function addAppointmentView() {
+        return view('admin.add_appointment');
     }
 
     public function uploadDoctor(Request $request) {
@@ -30,4 +35,23 @@ class AdminController extends Controller
 
         return redirect()->back()->with('message', 'Doctor has been added!');
     }
+
+    public function uploadAppointment(Request $request) {
+        $appointment = new appointment;
+
+        $appointment->patientname=$request->patientname;
+        $appointment->patientnumber=$request->patientnumber;
+        $appointment->idcard=$request->idcard;
+        $appointment->dob=$request->dob;
+        $appointment->adate=$request->adate;
+        $appointment->appt=$request->appt;
+        $appointment->department=$request->department;
+        $appointment->_doctor=$request->_doctor;
+        $appointment->info=$request->info;
+
+        $appointment->save();
+        return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!');
+    }
+
+   
 }
