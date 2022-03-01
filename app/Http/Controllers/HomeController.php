@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Doctor;
+use App\Models\Appointment;
 
 
 class HomeController extends Controller
@@ -17,6 +18,7 @@ class HomeController extends Controller
                 return view('user.home', compact('doctor'));
             }
             else {
+                
                 return view('admin.home');
             }
 
@@ -28,7 +30,15 @@ class HomeController extends Controller
     }
 
     public function index() {
-        $doctor = doctor::all();
-        return view('user.home',compact('doctor'));
+        if(Auth::id()) {
+            return redirect('home');
+        }
+        else
+        {
+            $doctor = doctor::all();
+           
+            return view('user.home',compact('doctor'));
+        }
+       
     }
 }

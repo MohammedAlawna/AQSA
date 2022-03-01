@@ -30,5 +30,6 @@ Route::get('/add_doctor_view', [AdminController::class, 'addview']);
 Route::POST('/upload_doctor', [AdminController::class, 'uploadDoctor']);
 
 //Appointment System.
+Route::get('/view_appointments', [AdminController::class, 'viewAppointments']);
 Route::get('/add_appointment_view', [AdminController::class, 'addAppointmentView']);
 Route::POST('/upload_appointment', [AdminController::class, 'uploadAppointment']);

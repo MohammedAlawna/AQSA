@@ -56,20 +56,20 @@
 
         <div class="col-md-6" style="padding:5px">
         <label>Patient Name</label>
-            <input type="text" name="patientname" style="color:black" placeholder="write patient name" required="">
+            <input type="text" name="patientname" style="color:black" placeholder="Write patient name" required="">
         </div>
 
 
             <div class="col-md-6" style="padding:5px">
             <label>Phone Number</label>
-            <input type="number" name="patientnumber" style="color:black" placeholder="write phone number" required="">
+            <input type="number" name="patientnumber" style="color:black" placeholder="Write phone number" required="">
             </div>
 
 
 
         <div class="col-md-6" style="padding:5px">
             <label>ID</label>
-            <input type="number" name="idcard" style="color:black" placeholder="write email" required="">
+            <input type="number" name="idcard" style="color:black" placeholder="National ID number.." required="">
         </div>
 
 
@@ -127,9 +127,9 @@
 
         <div style="padding:5px">
         <div class="md-form" >
-        <label for="form7">Additional Info</label>
+        <label for="form7">Full Address</label>
         <textarea id="form7" name="info" class="md-textarea form-control" rows="3"
-         style="background-color:white;color:black" placeholder="enter more info like the reason of appointment"></textarea>
+         style="background-color:white;color:black" placeholder="Enter patient's full address.."></textarea>
         
         </div>
 

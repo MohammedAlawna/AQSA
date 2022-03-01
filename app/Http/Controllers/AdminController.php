@@ -16,6 +16,13 @@ class AdminController extends Controller
         return view('admin.add_appointment');
     }
 
+    public function viewAppointments() {
+        $appointment = appointment::all();
+        
+        return view('admin.view_appointments', compact('appointment'));
+        
+    }
+
     public function uploadDoctor(Request $request) {
         $doctor = new doctor;
        /* $image = $request->file;
