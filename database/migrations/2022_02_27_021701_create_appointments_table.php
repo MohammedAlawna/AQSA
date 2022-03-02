@@ -24,6 +24,7 @@ class CreateAppointmentsTable extends Migration
             $table->string('department')->nullable();
             $table->string('_doctor')->nullable();
             $table->string('info')->nullable();
+            
             $table->timestamps();
         });
     }
@@ -36,5 +37,6 @@ class CreateAppointmentsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('appointments');
+       
     }
 }

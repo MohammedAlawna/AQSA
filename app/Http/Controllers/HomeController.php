@@ -41,4 +41,26 @@ class HomeController extends Controller
         }
        
     }
+
+    public function upload_Appointment(Request $request) {
+        $appointment = new appointment;
+
+        $appointment->patientname=$request->patientname;
+        $appointment->patientnumber=$request->patientnumber;
+        //$appointment->idcard=$request->idcard;
+        //$appointment->dob=$request->dob;
+        $appointment->adate=$request->adate;
+        //$appointment->appt=$request->appt;
+        $appointment->department=$request->department;
+        //$appointment->_doctor=$request->_doctor;
+        $appointment->info=$request->info;
+        
+       // $appointment->column = Auth::user()->id;
+          if(Auth::id()) {
+             $appointment->column = Auth::user()->id;
+      }
+
+        $appointment->save();
+        return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!');
+    }
 }

@@ -56,6 +56,10 @@ class AdminController extends Controller
         $appointment->_doctor=$request->_doctor;
         $appointment->info=$request->info;
 
+        if(Auth::id()) {
+            $appointment->column = Auth::user()->id;
+        }
+
         $appointment->save();
         return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!');
     }
