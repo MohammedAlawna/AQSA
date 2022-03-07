@@ -52,15 +52,40 @@ class HomeController extends Controller
         $appointment->adate=$request->adate;
         //$appointment->appt=$request->appt;
         $appointment->department=$request->department;
-        //$appointment->_doctor=$request->_doctor;
+        $appointment->_doctor=$request->_doctor;
         $appointment->info=$request->info;
         
        // $appointment->column = Auth::user()->id;
           if(Auth::id()) {
-             $appointment->column = Auth::user()->id;
+             $appointment->user_id = Auth::user()->id;
       }
 
         $appointment->save();
         return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!');
+    }
+
+    public function myappointment() {
+        //Prevent un-logged in users from accessing the appointments site!
+        if(Auth::id()) {
+            $userid = Auth::user()->id;
+            $appoint = appointment::where('user_id', $userid)->get();
+            return view('user.my_appointment', compact('appoint'));
+        }
+        else {
+            return redirect()->back();
+        }
+    }
+
+    public function cancel_appoint($id) {
+
+        $data = appointment::find($id);
+     
+        
+
+    
+        $data->delete();
+        return redirect()->back();
+      
+
     }
 }

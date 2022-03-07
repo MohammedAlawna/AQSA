@@ -34,3 +34,6 @@ Route::get('/view_appointments', [AdminController::class, 'viewAppointments']);
 Route::get('/add_appointment_view', [AdminController::class, 'addAppointmentView']);
 Route::POST('/upload_appointment', [AdminController::class, 'uploadAppointment']);
 Route::POST('/upload_appointment', [HomeController::class, 'upload_Appointment']);
+//View appointments
+Route::get('/myappointment', [HomeController::class, 'myappointment']);
+Route::get('/cancel_appoint/{id}', [HomeController::class, 'cancel_appoint']);

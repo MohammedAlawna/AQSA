@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnToAppointments extends Migration
+class AddUserIdToAppointments extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddColumnToAppointments extends Migration
     public function up()
     {
         Schema::table('appointments', function (Blueprint $table) {
-            $table->string('column', 10)->nullable(false)->default(null);
+            $table->string('user_id')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnToAppointments extends Migration
     public function down()
     {
         Schema::table('appointments', function (Blueprint $table) {
-            $table->dropColumn('column');
+            $table->dropColumn('user_id');
         });
     }
 }
