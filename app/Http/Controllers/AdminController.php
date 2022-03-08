@@ -89,5 +89,22 @@ USERTYPE ROLES SHEET!
         Appointment::find($appointment)->delete();
         return redirect()->back();
     }
+
+    public function approved($id) {
+
+        $data = appointment::find($id);
+       // $data->status='approved'; still trial! code need fix!
+       
+        $data->save();
+        return redirect()->back();
+    }
+    
+    public function cancelled($id) {
+        $data = appointment::find($id);
+        // $data->status='cancelled'; still trial! code need fix!
+        
+         $data->save();
+         return redirect()->back();
+    }
    
 }

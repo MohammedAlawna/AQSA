@@ -40,3 +40,6 @@ Route::get('/myappointment', [HomeController::class, 'myappointment']);
 Route::delete('/delete-appointment/{appointment}',[HomeController::class, 'delete']);
 //Route::POST('/delete-appointment/{appointment}', [HomeController::class, 'delete']);
 Route::delete('/delete-appointment/{appointment}',[AdminController::class, 'deleteAppointment']);
+//Approving/Cancelling the appointment!
+Route::get('/approved/{id}', [AdminController::class, 'approved']);
+Route::get('/cancelled/{id}', [AdminController::class, 'cancelled']);
