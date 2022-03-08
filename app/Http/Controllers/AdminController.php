@@ -2,14 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Appointment;
 
 class AdminController extends Controller
 {
+/*
+USERTYPE ROLES SHEET!
+1: Doctor.
+2: Secretary.
+3: Lab Rechnician.
+4: Administrator.
+*/
+
+
+
     public function addview() {
-        return view('admin.add_doctor');
+        if(Auth::user()->usertype == '1'){ //This permission should be for the administrator!
+            return view('admin.add_doctor');
+        }
+        else {
+            return redirect()->back();
+        }
+      
     }
 
     public function addAppointmentView() {
@@ -61,8 +79,15 @@ class AdminController extends Controller
         }
 
         $appointment->save();
+        
         return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!');
     }
 
+    
+    public function deleteAppointment($appointment) {
+
+        Appointment::find($appointment)->delete();
+        return redirect()->back();
+    }
    
 }

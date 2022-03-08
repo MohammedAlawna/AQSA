@@ -122,6 +122,7 @@
           <th style="padding:10px;font-size:20px;color:white;">Department </th>
           <th style="padding:10px;font-size:20px;color:white;">Date</th>
           <th style="padding:10px;font-size:20px;color:white;">Patient Name</th>
+
           <th style="padding:10px;font-size:20px;color:white;">Cancel Appointment.</th>
       </tr>
 
@@ -132,8 +133,16 @@
           <td style="padding:10px;color:white;">{{$appoints->department}}</td>
           <td style="padding:10px;color:white;">{{$appoints->adate}}</td>
           <td style="padding:10px;color:white;">{{$appoints->patientname}}</td>
-          <td><a class="btn btn-danger" href="{{url('cancel_appoint, $appoints->id')}}">Cancel</a></td>
-       
+          <div>
+          <form action="{{url('/delete-appointment/'.$appoints->id)}}" method="post">
+              {{ method_field('DELETE') }}
+              {{  csrf_field()  }}
+          <td>
+              <button class="btn btn-danger" type="submit" onclick="return 
+              confirm('Are you sure you want to delete this?')">Delete</button>
+          </td>
+          </form>
+        </div>
       </tr>
 
       @endforeach

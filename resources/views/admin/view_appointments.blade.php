@@ -53,6 +53,7 @@
       <th scope="col">Department</th>
       <th scope="col">Doctor</th>
       <th scope="col">Address</th>
+      <th scope="col">Cancel Appointment</th>
     </tr>
   </thead>
   <tbody>
@@ -69,6 +70,15 @@
       <td>{{$appointments->department}}</td>
       <td>{{$appointments->_doctor}}</td>
       <td>{{$appointments->info}}</td>
+      <div>
+          <form action="{{url('/delete-appointment/'.$appointments->id)}}" method="post">
+              {{ method_field('DELETE') }}
+              {{  csrf_field()  }}
+          <td>
+              <button class="btn btn-danger" type="submit">Delete</button>
+          </td>
+          </form>
+        </div>
     </tr>
     @endforeach
     <!-- <tr>

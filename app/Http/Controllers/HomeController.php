@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -76,7 +78,13 @@ class HomeController extends Controller
         }
     }
 
-    public function cancel_appoint($id) {
+    public function delete($appointment) {
+
+        Appointment::find($appointment)->delete();
+        return redirect()->back();
+    }
+
+  /*  public function cancel_appoint($id) {
 
         $data = appointment::find($id);
      
@@ -87,5 +95,5 @@ class HomeController extends Controller
         return redirect()->back();
       
 
-    }
+    }*/
 }

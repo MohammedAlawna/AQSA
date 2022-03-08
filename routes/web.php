@@ -36,4 +36,7 @@ Route::POST('/upload_appointment', [AdminController::class, 'uploadAppointment']
 Route::POST('/upload_appointment', [HomeController::class, 'upload_Appointment']);
 //View appointments
 Route::get('/myappointment', [HomeController::class, 'myappointment']);
-Route::get('/cancel_appoint/{id}', [HomeController::class, 'cancel_appoint']);
+//Delete Appointment.
+Route::delete('/delete-appointment/{appointment}',[HomeController::class, 'delete']);
+//Route::POST('/delete-appointment/{appointment}', [HomeController::class, 'delete']);
+Route::delete('/delete-appointment/{appointment}',[AdminController::class, 'deleteAppointment']);
