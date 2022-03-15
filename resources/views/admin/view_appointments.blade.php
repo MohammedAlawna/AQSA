@@ -55,6 +55,7 @@
       <th scope="col">Address</th>
       <th scope="col">Approve</th>
       <th scope="col">Cancel</th>
+      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -73,16 +74,12 @@
       <td>{{$appointments->info}}</td>
 
       <div>
-        <td>
-        <a class="btn btn-success" href="{{'approved', $appointments->id}}">Approve</a>
-    </td>
-          <!-- <form action="{{url('/delete-appointment/'.$appointments->id)}}" method="post">
-              {{ method_field('DELETE') }}
+          <form action="{{url('/approved/'.$appointments->id)}}" method="post">
               {{  csrf_field()  }}
           <td>
-              <button class="btn btn-success" type="submit">Delete</button>
+              <button class="btn btn-success" type="submit">Approve</button>
           </td>
-          </form> -->
+          </form>
         </div>
 
       <div>
@@ -94,6 +91,22 @@
           </td>
           </form>
         </div>
+      <td>{{$appointments->status}}</td>
+
+      <!-- <div>
+        <td>
+        <a class="btn btn-success" href="{{'approved', $appointments->id}}">Approve</a>
+    </td>
+         <form action="{{url('/delete-appointment/'.$appointments->id)}}" method="post">
+              {{ method_field('DELETE') }}
+              {{  csrf_field()  }}
+          <td>
+              <button class="btn btn-success" type="submit">Approve</button>
+          </td>
+          </form>
+        </div> -->
+
+     
     </tr>
     @endforeach
     <!-- <tr>

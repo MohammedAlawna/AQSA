@@ -30,6 +30,15 @@ USERTYPE ROLES SHEET!
       
     }
 
+    public function addReportView() {
+        if(Auth::user()->usertype == '1'){ //This permission should be for the administrator!
+            return view('admin.add_report');
+        }
+        else {
+            return redirect()->back();
+        }
+    }
+
     public function addAppointmentView() {
         return view('admin.add_appointment');
     }
@@ -73,6 +82,8 @@ USERTYPE ROLES SHEET!
         $appointment->department=$request->department;
         $appointment->_doctor=$request->_doctor;
         $appointment->info=$request->info;
+        //$appointment->status=$request->status;
+        $appointment->status='Processing..';
 
         if(Auth::id()) {
             $appointment->column = Auth::user()->id;
@@ -93,7 +104,7 @@ USERTYPE ROLES SHEET!
     public function approved($id) {
 
         $data = appointment::find($id);
-       // $data->status='approved'; still trial! code need fix!
+        $data->status='Approved!';
        
         $data->save();
         return redirect()->back();

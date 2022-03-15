@@ -33,8 +33,9 @@
             <textarea name="message" id="message" class="form-control" rows="6" placeholder="Enter message.."></textarea>
           </div> -->
         </div>
-
-        <button type="submit" class="btn btn-primary mt-3 wow zoomIn">Submit Request</button>
+        <div>
+        <button style="background-color:#00D9A5;" type="submit" class="btn btn-primary mt-3 wow zoomIn">Submit Request</button>
+        </div>
       </form>
     </div>
   </div> <!-- .page-section -->

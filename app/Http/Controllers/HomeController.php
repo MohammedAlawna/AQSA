@@ -56,6 +56,9 @@ class HomeController extends Controller
         $appointment->department=$request->department;
         $appointment->_doctor=$request->_doctor;
         $appointment->info=$request->info;
+        $appointment->status= "Processing..";
+    
+
         
        // $appointment->column = Auth::user()->id;
           if(Auth::id()) {

@@ -79,6 +79,14 @@
               </span>
               <span class="menu-title">Add Doctor</span>
             </a>
+
+            <!-- Generate report view -->
+            <a class="nav-link" href="{{url('add_report_view')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-file-document-box"></i>
+              </span>
+              <span class="menu-title">Generate Report</span>
+            </a>
         
           </li>
         </ul>

@@ -65,7 +65,10 @@
             <input type="number" name="patientnumber" style="color:black" placeholder="Write phone number" required="">
             </div>
 
-
+            <!-- <div class="col-md-6" style="padding:5px">
+            <label>Status</label>
+            <input type="text" name="status" style="color:black" value="Processing..." required="">
+            </div> -->
 
         <div class="col-md-6" style="padding:5px">
             <label>ID</label>

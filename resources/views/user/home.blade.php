@@ -83,6 +83,7 @@
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
 
+            <!-- You should get rid of this soon or replace it with check my appointment status! -->
             @if(Route::has('login'))
             @auth
             
