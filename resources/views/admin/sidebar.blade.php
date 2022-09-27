@@ -86,6 +86,15 @@
               </span>
               <span class="menu-title">Generate Report</span>
             </a>
+
+            <a class="nav-link" href="{{url('lab_depart')}}">
+              <span class="menu-icon">
+                <i class="mdi mdi-file-document-box"></i>
+              </span>
+              <span class="menu-title">Lab Department</span>
+            </a>
+
+           
         
           </li>
         </ul>

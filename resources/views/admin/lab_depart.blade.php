@@ -41,12 +41,8 @@
         <div class="container" align="center" style="padding-top: 100px">
 
        
-        <h1>You can generate your report here!</h1>
-    <button>Generate Report</button>
-    <div class="panel-body">
-                    <a class="btn btn-primary btn-sm pull-right" href="{{ route('export-docx') }}">Download DOC</a>
-                </div>
-        </div>
+   <h1>Lab Department</h1>
+   <p>The mini-laboratory management system would be implemented here in this page.</p>
 
 </div>
 

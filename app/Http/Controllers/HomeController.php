@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -85,6 +82,27 @@ class HomeController extends Controller
 
         Appointment::find($appointment)->delete();
         return redirect()->back();
+    }
+
+    public function exportDocx() {
+  
+            $filename = 'docfile.doc';
+            header("Content-Type: application/force-download");
+            header( "Content-Disposition: attachment; filename=".basename($filename));
+            header( "Content-Description: File Transfer");
+            @readfile($filename);
+    
+            $htmlContent = '<html>
+                            <head></head>
+                            <body>
+                            <h1>Report Heading: Add your title</h1>
+                            <p>Attached you will find data of your generated report dude!</p>
+                            </body>
+                            </html>';
+    
+            // $content = view('users.resume.resume-content', compact('data'))->render();
+            echo $htmlContent;
+        
     }
 
   /*  public function cancel_appoint($id) {

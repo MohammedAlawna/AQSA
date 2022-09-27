@@ -50,6 +50,10 @@ USERTYPE ROLES SHEET!
         
     }
 
+    public function viewLabDepart(){
+        return view('admin.lab_depart');
+    }
+
     public function uploadDoctor(Request $request) {
         $doctor = new doctor;
        /* $image = $request->file;
@@ -68,6 +72,30 @@ USERTYPE ROLES SHEET!
         $doctor->save();
 
         return redirect()->back()->with('message', 'Doctor has been added!');
+    }
+
+    //TODO:: Upload Appointment For New Patient.
+    public function uploadNewAppointmnet(Request $request){
+        $user = new user;
+        
+
+        //Patient name -> should add new patient to the Patient/User Table.
+        /*You can stick to this new function, or add a boolean value with the
+        same upload appointment function below.. */
+
+        /*
+        Should be something like this->
+        $user = new App\User();
+        $user->password = Hash::make('the-password-of-choice');
+        $user->email = 'the-email@example.com';
+        $user->name = 'My Name';
+        $user->save();
+        and/or this command line / code: 
+        DB::table('users')->insert(['name'=>'MyUsername','email'=>'thisis@myemail.com','password'=>Hash::make('123456')])
+
+        you can refer to this thread for further help:
+        https://stackoverflow.com/questions/35753951/manually-register-a-user-in-laravel
+        */
     }
 
     public function uploadAppointment(Request $request) {
