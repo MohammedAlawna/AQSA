@@ -99,8 +99,17 @@ USERTYPE ROLES SHEET!
     }
 
     public function uploadAppointment(Request $request) {
-        $appointment = new appointment;
+        $user = new user;
+        $user->name = $request->patientname; 
+        //ID
+        $user->dob = $request->dob; 
+        $user->password = $request->generateRandomPass(); 
+        $user->save();
+        /*
+        first add use:: then book appointment
+        */ 
 
+        $appointment = new appointment;
         $appointment->patientname=$request->patientname;
         $appointment->patientnumber=$request->patientnumber;
         $appointment->idcard=$request->idcard;
