@@ -131,23 +131,25 @@
       <div class="container">
         <h1 class="text-center wow fadeInUp">Make an Appointment</h1>
 
-        <form class="main-form">
+        <form action="{{url('upload_guest_appointment')}}" method="POST">
+        @csrf
           <div class="row mt-5">
             <div class="col-12 col-sm-6 py-2 wow fadeInLeft">
-              <input type="text" class="form-control" placeholder="Full name" />
+              <input name="patientname" type="text" class="form-control" placeholder="Full name" />
             </div>
             <div class="col-12 col-sm-6 py-2 wow fadeInRight">
               <input
+              name="patientnumber"
                 type="text"
                 class="form-control"
-                placeholder="Email address.."
+                placeholder="Email/Phone.."
               />
             </div>
             <div
               class="col-12 col-sm-6 py-2 wow fadeInLeft"
               data-wow-delay="300ms"
             >
-              <input type="date" class="form-control" />
+              <input name="appointment_date" type="date" class="form-control" />
             </div>
             <div
               class="col-12 col-sm-6 py-2 wow fadeInRight"
@@ -161,12 +163,22 @@
                 <option value="orthopaedics">Orthopaedics</option>
               </select>
             </div>
-            <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
-              <input type="text" class="form-control" placeholder="Number.." />
-            </div>
+
+            <div
+              class="col-12 col-sm-6 py-2 wow fadeInRight"
+              data-wow-delay="300ms"
+            >
+            <select name="_doctor" class="custom-select">
+               <option>--Select Doctor--</option>
+               <option value="JafarAlawna">Dr. Jafar Alawna</option>
+               <option value="OmarAlawna">Dr. Omar Alawna.</option>
+               <option value="SaadLahham">Dr. Saad Lahham</option>
+               <option value="MohammedAlawna">Prof. Mohammed Alawna.</option>
+</div>
+           
             <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
               <textarea
-                name="message"
+                name="info"
                 id="message"
                 class="form-control"
                 rows="6"

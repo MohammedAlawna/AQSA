@@ -25,6 +25,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+//Different Pages for different permissions (Secretary, LabTech, AdminDash).
+Route::get('/secretarydashboard', [HomeController::class, 'goToSecretaryDashboard']);
+Route::get('/labtechdash', [HomeController::class, 'goToLabTechnicianDashboard']);
+Route::get('/admindashboard', [HomeController::class, 'goToAdminDashboard']);
+
 //Doctors System.
 Route::get('/add_doctor_view', [AdminController::class, 'addview']);
 Route::get('/add_report_view', [AdminController::class, 'addReportView']);
@@ -36,6 +41,7 @@ Route::get('/view_appointments', [AdminController::class, 'viewAppointments']);
 Route::get('/add_appointment_view', [AdminController::class, 'addAppointmentView']);
 Route::POST('/upload_appointment', [AdminController::class, 'uploadAppointment']);
 Route::POST('/upload_appointment', [HomeController::class, 'upload_Appointment']);
+Route::POST('/upload_guest_appointment', [HomeController::class, 'guestUploadAppointment']);
 //View appointments
 Route::get('/myappointment', [HomeController::class, 'myappointment']);
 //Delete Appointment.

@@ -7,18 +7,35 @@ use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Appointment;
 
-
 class HomeController extends Controller
 {
+
     public function redirect() {
         if(Auth::id()) {
             if(Auth::user()->usertype == '0'){
                 $doctor = doctor::all();
                 return view('user.home', compact('doctor'));
+            
             }
-            else {
+            else if(Auth::user()->usertype == '1') {
+                //You may manage user permissions here between than other places.
+                //AAAHHH NAAEL.
                 
                 return view('admin.home');
+            }
+            else if(Auth::user()->usertype == '2'){
+                //Secretary.
+                error_log("Some Message Here..");
+                goToSecretaryDashboard();
+            }
+            else if(Auth::user()->usertype == '3'){
+                //Lab Technician.
+                return view('admin.secret');
+                goToLabTechnicianDashboard();
+            }
+            else if(Auth::user()->usertype == '4'){
+                //OPTIONAL:: Admin.
+                goToAdminDashboard();
             }
 
         }
@@ -28,34 +45,82 @@ class HomeController extends Controller
         }
     }
 
-    public function index() {
+     public function index() {
         if(Auth::id()) {
             return redirect('home');
         }
         else
         {
             $doctor = doctor::all();
-           
             return view('user.home',compact('doctor'));
         }
        
     }
 
-    public function upload_Appointment(Request $request) {
+    public function goToSecretaryDashboard() {
+        //Shows the Secretary Dashboard (Manage Appointments only).
+            return view('secretarydashboard');
+    }
+
+    public function goToLabTechnicianDashboard(){
+        //Shows the Lab Technician Dasboard (View Lab Patient, Add To Lab, etc..)
+        //In the implementation, the data for the lab tech would be pushed form doctor.
+        //OPTIONAL: Lab technician can choose a patient and add it to the table.       
+            return view('labtechdash');
+    }
+
+    public function goToAdminDashboard(){
+        //OPTIONAL..
+        //Shows the admin dashboard (only reports, revenue, logs).
+            return view('admindashboard');
+    }
+
+
+    //Upload Appointment by Guest.
+    public function guestUploadAppointment(Request $request){
+        $user = new user; 
+        $user->name = $request->patientname; 
+        $user->email = $request->patientnumber;
+        $user->password = "123";
+        $user->save();
+
         $appointment = new appointment;
 
-        $appointment->patientname=$request->patientname;
+        $appointment->patientname=$user->name;
+        $appointment->adate = $request->appointment_date;
+        $appointment->department=$request->department;
+        $appointment->_doctor=$request->_doctor;
+
+        //Full Message Inquiry.
+        $appointment->info=$request->info;
+        $appointment->status= "Processing..";
+        if(Auth::id()) {
+            $appointment->user_id = Auth::user()->id;
+        }
+        $appointment->save();
+      //  return redirect()->back()->with('message', 'Appointment has been created!');
+    }
+
+    
+    public function upload_Appointment(Request $request) {
+        $user = new user; 
+        $user->name = $request->patientname; 
+        $user->email = $request->patientnumber;
+        $user->password = "123";
+        $user->save();
+
+        $appointment = new appointment;
+
+        $appointment->patientname=$user->name;
         $appointment->patientnumber=$request->patientnumber;
-        //$appointment->idcard=$request->idcard;
-        //$appointment->dob=$request->dob;
+        $appointment->idcard=$request->idcard; //1
+        $appointment->dob=$request->dob; //2
         $appointment->adate=$request->adate;
-        //$appointment->appt=$request->appt;
+        $appointment->appt=$request->appt; //3
         $appointment->department=$request->department;
         $appointment->_doctor=$request->_doctor;
         $appointment->info=$request->info;
         $appointment->status= "Processing..";
-    
-
         
        // $appointment->column = Auth::user()->id;
           if(Auth::id()) {
@@ -63,7 +128,7 @@ class HomeController extends Controller
       }
 
         $appointment->save();
-        return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!');
+        return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!'); 
     }
 
     public function myappointment() {
@@ -79,13 +144,11 @@ class HomeController extends Controller
     }
 
     public function delete($appointment) {
-
         Appointment::find($appointment)->delete();
         return redirect()->back();
     }
 
     public function exportDocx() {
-  
             $filename = 'docfile.doc';
             header("Content-Type: application/force-download");
             header( "Content-Disposition: attachment; filename=".basename($filename));
@@ -102,7 +165,6 @@ class HomeController extends Controller
     
             // $content = view('users.resume.resume-content', compact('data'))->render();
             echo $htmlContent;
-        
     }
 
   /*  public function cancel_appoint($id) {

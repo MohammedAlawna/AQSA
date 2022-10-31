@@ -10,40 +10,47 @@ use App\Models\Appointment;
 
 class AdminController extends Controller
 {
-/*
-USERTYPE ROLES SHEET!
-1: Doctor.
-2: Secretary.
-3: Lab Rechnician.
-4: Administrator.
-*/
-
-
 
     public function addview() {
-        if(Auth::user()->usertype == '1'){ //This permission should be for the administrator!
+        /*If user is superadmin (alternatively, you could 
+        do it for a super-doctor as well)*/
+        if(Auth::user()->usertype == '1'){ 
             return view('admin.add_doctor');
         }
         else {
-            return redirect()->back();
+            return view('admin.denied');
+            //return redirect()->back();
         }
-      
     }
 
     public function addReportView() {
-        if(Auth::user()->usertype == '1'){ //This permission should be for the administrator!
+        //If User Is Doctor..
+        if(Auth::user()->usertype == '1'){ 
             return view('admin.add_report');
         }
         else {
-            return redirect()->back();
+            return view('admin.denied');
+            //return redirect()->back();
         }
     }
 
     public function addAppointmentView() {
-        return view('admin.add_appointment');
+         //User Doctor or Secret.
+         if(Auth::user()->usertype == "2" || Auth::user()->usertype == "1"){
+            return view('admin.add_appointment');
+         }
+         else {
+            return view('admin.denied');
+            //return redirect()->back();
+         }
+       
     }
 
     public function viewAppointments() {
+        //User Doctor or Secret.
+        if(Auth::user()->usertype == ''){
+
+        }
         $appointment = appointment::all();
         
         return view('admin.view_appointments', compact('appointment'));
@@ -51,8 +58,15 @@ USERTYPE ROLES SHEET!
     }
 
     public function viewLabDepart(){
-        return view('admin.lab_depart');
-    }
+        //User Lab Only!
+        if(Auth::user()->usertype == "3"){
+            return view('admin.lab_depart');
+        }
+        else {
+            return view('admin.denied');
+            //return redirect()->back();
+        }
+        }
 
     public function uploadDoctor(Request $request) {
         $doctor = new doctor;
@@ -99,36 +113,37 @@ USERTYPE ROLES SHEET!
     }
 
     public function uploadAppointment(Request $request) {
-        $user = new user;
-        $user->name = $request->patientname; 
-        //ID
-        $user->dob = $request->dob; 
-        $user->password = $request->generateRandomPass(); 
-        $user->save();
-        /*
-        first add use:: then book appointment
-        */ 
+        // $user = new user;
+        // $user->name = $request->patientname; 
+        // //ID
+        // $user->dob = $request->dob; 
+        // $user->password = $request->generateRandomPass(); 
+        // $user->save();
+        // /*
+        // first add user:: then book appointment
+        // */ 
 
-        $appointment = new appointment;
-        $appointment->patientname=$request->patientname;
-        $appointment->patientnumber=$request->patientnumber;
-        $appointment->idcard=$request->idcard;
-        $appointment->dob=$request->dob;
-        $appointment->adate=$request->adate;
-        $appointment->appt=$request->appt;
-        $appointment->department=$request->department;
-        $appointment->_doctor=$request->_doctor;
-        $appointment->info=$request->info;
-        //$appointment->status=$request->status;
-        $appointment->status='Processing..';
-
-        if(Auth::id()) {
-            $appointment->column = Auth::user()->id;
-        }
-
-        $appointment->save();
+        // $appointment = new appointment;
         
-        return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!');
+        // $appointment->patientname=$user->name;
+        // $appointment->patientnumber=$request->patientnumber;
+        // $appointment->idcard=$request->idcard;
+        // $appointment->dob=$user->dob;
+        // $appointment->adate=$request->adate;
+        // $appointment->appt=$request->appt;
+        // $appointment->department=$request->department;
+        // $appointment->_doctor=$request->_doctor;
+        // $appointment->info=$request->info;
+        // //$appointment->status=$request->status;
+        // $appointment->status='Processing..';
+       
+        // if(Auth::id()) {
+        //     $appointment->column = Auth::user()->id;
+        // }
+
+        // $appointment->save();
+        
+        // return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!');
     }
 
     
