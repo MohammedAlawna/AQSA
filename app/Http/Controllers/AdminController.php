@@ -69,6 +69,32 @@ class AdminController extends Controller
 
     }
 
+    public function exportDocx() { //Doctor View Report
+        $filename = 'docfile.doc';
+        header("Content-Type: application/force-download");
+        header( "Content-Disposition: attachment; filename=".basename($filename));
+        header( "Content-Description: File Transfer");
+        @readfile($filename);
+
+        //Retrieve Data from DB / Request and embed them here inside the word file (report)
+
+        $htmlContent = '<html>
+                        <head></head>
+                        <body>
+                        <h1>Report Heading: Add your title</h1>
+                        <p>Attached you will find data of your generated report dude!</p>
+                        </body>
+                        </html>';
+
+        // $content = view('users.resume.resume-content', compact('data'))->render();
+        echo $htmlContent;
+}
+
+public function exportPatientReport(){
+    //Patient View.
+    //TODO Code to be added later on.
+}
+
     public function addAppointmentView() {
          //User Doctor or Secret.
          if(Auth::user()->usertype == "2" || Auth::user()->usertype == "1"){
