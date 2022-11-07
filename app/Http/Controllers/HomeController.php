@@ -20,8 +20,8 @@ class HomeController extends Controller
             else if(Auth::user()->usertype == '1') {
                 //You may manage user permissions here between than other places.
                 //AAAHHH NAAEL.
-                
-                return view('admin.home');
+                $user = user::all();
+                return view('admin.home', compact('user'));
             }
             else if(Auth::user()->usertype == '2'){
                 //Secretary.

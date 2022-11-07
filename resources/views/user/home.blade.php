@@ -64,9 +64,6 @@
           <a class="navbar-brand" href="#"
             ><span class="text-success">AQ</span>-SA</a
           >
-
-         
-
           <button
             class="navbar-toggler"
             type="button"

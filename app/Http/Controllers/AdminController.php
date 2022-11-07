@@ -6,11 +6,14 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use App\Models\User;
 use App\Models\Appointment;
+
 
 class AdminController extends Controller
 {
 
+    
     public function addview() {
         /*If user is superadmin (alternatively, you could 
         do it for a super-doctor as well)*/
@@ -26,12 +29,44 @@ class AdminController extends Controller
     public function addReportView() {
         //If User Is Doctor..
         if(Auth::user()->usertype == '1'){ 
-            return view('admin.add_report');
+           $user = user::all();
+            return view('admin.add_report', compact('user'));
         }
         else {
             return view('admin.denied');
             //return redirect()->back();
         }
+    }
+
+    public function upload_report(Request $request){
+        $appointment = new appointment; 
+        $report = new report; 
+
+        //Data To Assign:
+        /*
+        appointment ID.
+        Patient Name.
+        Patient Prescriptoin.
+        Patient Details.
+        Patient Symptoms.
+        Patient's Age.
+        Appointment Date.
+        Appointment Time.
+        Patient's Gender.
+        Patient's Doctor.
+        * */
+
+        $report->appointid = $appointment->id;
+        $report->patientname = $request->patientname;
+        $report->prescription = $report->prescription;
+        $report->details = $request->details;
+        $report->symptoms = $request->symptoms;
+        $report->age = $request->age; 
+        $report->gender = $request->gender; 
+        $report->adate = $appointment->adate;
+        $report->appt = $appointment->appt; 
+        $report->doctor = $appointment->_doctor; 
+
     }
 
     public function addAppointmentView() {
@@ -148,7 +183,6 @@ class AdminController extends Controller
 
     
     public function deleteAppointment($appointment) {
-
         Appointment::find($appointment)->delete();
         return redirect()->back();
     }
@@ -166,8 +200,8 @@ class AdminController extends Controller
         $data = appointment::find($id);
         // $data->status='cancelled'; still trial! code need fix!
         
-         $data->save();
-         return redirect()->back();
+        $data->save();
+        return redirect()->back();
     }
    
 }

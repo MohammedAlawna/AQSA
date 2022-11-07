@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,18 +37,49 @@
       <!-- partial -->
      @include('admin.navbar')
         <!-- partial -->
+  
 
-        <div class="container-fluid page-body-wrapper">
-        <div class="container" align="center" style="padding-top: 100px">
+        <div class="container-fluid page-body-wrapper row" style="margin-top: 25px;">
 
-       
-        <h1>You can generate your report here!</h1>
-    <button>Generate Report</button>
-    <div class="panel-body">
-                    <a class="btn btn-primary btn-sm pull-right" href="{{ route('export-docx') }}">Download DOC</a>
-                </div>
-        </div>
+            <form action="{{url('upload_report')}}" method="POST">
+            @csrf
+                <div>
+                <h2 style="text-align: center; font-size: 38px;">Doctor Report</h2>
+        <div class="col-md-6" style="padding:5px">
+        <label for="patientName">Select Patient</label>
+        <select class="custom-select" name="patientName" id="patientName" style="text-color: black;">
+              <option>--Select Patient Name--</option>
+              @foreach($user as $users)
+              <option value="{{$users->name}}">{{$users->name}}</option>
+              @endforeach
+            </select>
+      </div>
+           
 
+        <div style="padding:5px">
+        <label>Prescription</label>
+        <textarea id="form7" name="prescription" class="md-textarea form-control" rows="3" cols="7"
+         style="background-color:white;color:black" placeholder="Prescription..."></textarea>
+
+
+            <label>Details</label>
+            <textarea id="form7" name="details" class="md-textarea form-control" rows="8"
+         style="background-color:white;color:black" placeholder="Details..."></textarea>
+        
+
+            <label>Symptoms</label>
+            <textarea id="form7" name="symptoms" class="md-textarea form-control" rows="3"
+         style="background-color:white;color:black" placeholder="Symptoms..."></textarea>
+          </div>
+
+          <button type="button" class="btn btn-primary">Doctor View Report<button>
+            <button type="button" class="btn btn-primary">Patient View Report</button>
+            <button type="button" class="btn btn-primary">Push To Lab</button>
+  
+    </div>
+  
+         </div>
+</form>
 </div>
 
     <!-- container-scroller -->
