@@ -70,6 +70,7 @@ class AdminController extends Controller
     }
 
     public function exportDocx() { //Doctor View Report
+        $report = new report;
         $filename = 'docfile.doc';
         header("Content-Type: application/force-download");
         header( "Content-Disposition: attachment; filename=".basename($filename));
@@ -82,10 +83,14 @@ class AdminController extends Controller
                         <head></head>
                         <body>
                         <h1>Report Heading: Add your title</h1>
+                        <p> {{$report->patientname}}} </p>
                         <p>Attached you will find data of your generated report dude!</p>
                         </body>
                         </html>';
 
+        //You can do this as well (In that way..)
+        $patientName = $report->patientname;
+        echo $patientName;
         // $content = view('users.resume.resume-content', compact('data'))->render();
         echo $htmlContent;
 }
