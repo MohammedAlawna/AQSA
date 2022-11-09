@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\User;
 use App\Models\Appointment;
+use App\Models\Report;
 
 
 class AdminController extends Controller
@@ -38,27 +39,22 @@ class AdminController extends Controller
         }
     }
 
-    public function upload_report(Request $request){
+    public function upload(Request $request){
         $appointment = new appointment; 
-        $report = new report; 
+        $report = new report;
 
-        //Data To Assign:
-        /*
-        appointment ID.
-        Patient Name.
-        Patient Prescriptoin.
-        Patient Details.
-        Patient Symptoms.
-        Patient's Age.
-        Appointment Date.
-        Appointment Time.
-        Patient's Gender.
-        Patient's Doctor.
-        * */
+
+        //TODO:: Retrieve appointment for that specific patient
+        //If patient name in that appointment, then assign values here!
+        if(Auth::id()){
+            $patientID = Auth::user()->id; 
+            $appoint = appointment::where('user_id', $patientID)->get();
+             echo $appoint;
+        }
 
         $report->appointid = $appointment->id;
         $report->patientname = $request->patientname;
-        $report->prescription = $report->prescription;
+        $report->prescription = $request->prescription;
         $report->details = $request->details;
         $report->symptoms = $request->symptoms;
         $report->age = $request->age; 
@@ -66,6 +62,10 @@ class AdminController extends Controller
         $report->adate = $appointment->adate;
         $report->appt = $appointment->appt; 
         $report->doctor = $appointment->_doctor; 
+
+        $report->save();
+       // $appointment->save();
+        return redirect()->back()->with('message', 'Doctor Report has been added!');
 
     }
 

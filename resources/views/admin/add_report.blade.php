@@ -41,45 +41,76 @@
 
         <div class="container-fluid page-body-wrapper row" style="margin-top: 25px;">
 
-            <form action="{{url('upload_report')}}" method="POST">
+
+        
+        @if(session()->has('message'))
+            <div class="alert alert-success">
+                <button class="close" type="button" data-dismiss="alert"></button>
+                {{session()->get('message')}}
+            </div>
+
+            @endif
+
+        <form action="{{url('upload_report')}}" method="POST">
             @csrf
-                <div>
-                <h2 style="text-align: center; font-size: 38px;">Doctor Report</h2>
-        <div class="col-md-6" style="padding:5px">
-        <label for="patientName">Select Patient</label>
-        <select class="custom-select" name="patientName" id="patientName" style="text-color: black;">
+            <div style="padding: 15px">
+            <label for="patientname">Select Patient</label>
+        <select class="custom-select" name="patientname" id="patientname" style="text-color: black;">
               <option>--Select Patient Name--</option>
               @foreach($user as $users)
               <option value="{{$users->name}}">{{$users->name}}</option>
               @endforeach
             </select>
-      </div>
-           
+    </div>
 
-        <div style="padding:5px">
-        <label>Prescription</label>
+    <div style="padding: 15px">
+    <label for="age">Age</label>
+    <input name="age" type="number">
+    </div>
+
+    <div style="padding: 15px">
+  <label for="gender">Gender</label>
+  <select name="gender" id="gender">
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+  
+  </div>
+    <div style="padding: 15px">
+    <label>Prescription</label>
         <textarea id="form7" name="prescription" class="md-textarea form-control" rows="3" cols="7"
          style="background-color:white;color:black" placeholder="Prescription..."></textarea>
 
+    </div>
 
-            <label>Details</label>
+   
+
+    <div style="padding: 15px">
+    <label>Details</label>
             <textarea id="form7" name="details" class="md-textarea form-control" rows="8"
          style="background-color:white;color:black" placeholder="Details..."></textarea>
         
 
-            <label>Symptoms</label>
+    </div>
+ 
+    
+    
+    <div style="padding: 15px">
+   
+    <label>Symptoms</label>
             <textarea id="form7" name="symptoms" class="md-textarea form-control" rows="3"
          style="background-color:white;color:black" placeholder="Symptoms..."></textarea>
           </div>
-
-          <button type="button" class="btn btn-primary">Doctor View Report<button>
-            <button type="button" class="btn btn-primary">Patient View Report</button>
-            <button type="button" class="btn btn-primary">Push To Lab</button>
-  
+    
+          <div style="padding: 15px">
+   
+    <input type="submit" class="btn btn-success">
+   </div>
     </div>
-  
-         </div>
-</form>
+
+
+            </form>
+
 </div>
 
     <!-- container-scroller -->

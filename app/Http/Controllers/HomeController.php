@@ -75,6 +75,26 @@ class HomeController extends Controller
             return view('admindashboard');
     }
 
+    public function uploadReport(Request $request){
+        $appointment = new appointment; 
+        $report = new report; 
+
+        $report->appointid = $appointment->id;
+        $report->patientname = $request->patientname;
+        $report->prescription = $report->prescription;
+        $report->details = $request->details;
+        $report->symptoms = $request->symptoms;
+        $report->age = $request->age; 
+        $report->gender = $request->gender; 
+        $report->adate = $appointment->adate;
+        $report->appt = $appointment->appt; 
+        $report->doctor = $appointment->_doctor; 
+
+        $report->save();
+        return redirect()->back()->with('message', 'Doctor has been added!');
+
+    }
+
 
     //Upload Appointment by Guest.
     public function guestUploadAppointment(Request $request){
@@ -131,6 +151,7 @@ class HomeController extends Controller
         return redirect()->back()->with('message', 'Appointment has been created!');  //->with('message', 'Doctor has been added!'); 
     }
 
+   
     public function myappointment() {
         //Prevent un-logged in users from accessing the appointments site!
         if(Auth::id()) {
