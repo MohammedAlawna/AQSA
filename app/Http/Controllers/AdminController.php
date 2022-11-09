@@ -47,12 +47,14 @@ class AdminController extends Controller
         //TODO:: Retrieve appointment for that specific patient
         //If patient name in that appointment, then assign values here!
         if(Auth::id()){
-            $patientID = Auth::user()->id; 
+           // $patientID = Auth::user()->id;  replace to userName
+
+           //Then check with userName..
             $appoint = appointment::where('user_id', $patientID)->get();
-             echo $appoint;
+            $report->appointid =$appoint->id;
         }
 
-        $report->appointid = $appointment->id;
+       // $report->appointid = $appointment->id;
         $report->patientname = $request->patientname;
         $report->prescription = $request->prescription;
         $report->details = $request->details;
