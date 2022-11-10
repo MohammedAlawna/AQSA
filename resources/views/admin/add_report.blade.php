@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -105,8 +104,7 @@
           <div style="padding: 15px">
    
     <button class="btn btn-danger" type="submit">Save Report To DB</button>
-    <a class="btn btn-success" href="{{ route('generateDocRep') }}">Generate Doctor View Report</a>
-    
+    <a class="btn btn-primary" href="{{ route('upload_report') }}">Download DOC</a>
     <button class="btn btn-warning">Generate Patient View Report</button>
     <button class="btn btn-info">Push Data To Lab</button>
 
