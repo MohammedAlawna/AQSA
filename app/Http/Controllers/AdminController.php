@@ -12,7 +12,8 @@ use App\Http\Controllers\HomeController;
 
 class AdminController extends Controller
 {
-   
+   var $appointmentClone = "";
+   var $reportClone = ""; 
 
     
     public function addview() {
@@ -40,9 +41,8 @@ class AdminController extends Controller
     }
 
     public function upload(Request $request){
-        // $appointment = new appointment; 
-        // $report = new report;
-
+         $appointment = new appointment; 
+         $report = new report;
 
         //TODO:: Retrieve appointment for that specific patient
         //If patient name in that appointment, then assign values here!
@@ -76,11 +76,28 @@ class AdminController extends Controller
         //Export The Report (DOC File).
         //exportDocx();
 
+        $appointmentClone = $appointment;
+        $reportClone = $report;
         return redirect()->back()->with('message', 'Doctor Report has been added!');
     }
 
-    public function generateDocRep() { //Doctor View Report
-        $filename = 'docfile.doc';
+  
+
+    public function generateDocRep(Request $request) { //Doctor View Report
+
+        $appointment = new appointment; 
+         $report = new report;
+
+         $nameOfPatient = $request->patientname;
+         //Then check with userName..
+         $appointDb = appointment::where('patientname', $nameOfPatient)->get();
+         
+        
+ 
+
+
+         $htmlContent = $request->prescription;
+        $filename = "Doctor_report.doc";
         header("Content-Type: application/force-download");
         header( "Content-Disposition: attachment; filename=".basename($filename));
         header( "Content-Description: File Transfer");
@@ -90,18 +107,21 @@ class AdminController extends Controller
       //  $name = $_GET['patientname'];
         //Retrieve Data from DB / Request and embed them here inside the word file (report)
 
-        $htmlContent ='<html>
-                        <head></head>
-                        <body>
-                        <h1>Report Heading: Add your title</h1>
-                        <p> $report->patientname </p>
-                        <p>Attached you will find data of your generated report dude!</p>
-                        </body>
-                        </html>'. ' '. 'Hell';
+        // $htmlContent ='<html>
+        //                 <head></head>
+        //                 <body>
+        //                 <h1>Report Heading: Add your title</h1>
+        //                 <p> $report->patientname </p>
+        //                 <p>Attached you will find data of your generated report dude!</p>
+        //                 </body>
+        //                 </html>'. ' '. 'Hell';
 
+       
+                      
         //You can do this as well (In that way..)
         // $content = view('users.resume.resume-content', compact('data'))->render();
-        echo $htmlContent;
+      
+        echo $appointDb;
 
        // echo $name;
 }

@@ -32,6 +32,7 @@ Route::get('/admindashboard', [HomeController::class, 'goToAdminDashboard']);
 
 //Doctors System.
 Route::POST('/upload_report', [AdminController::class, 'upload']);
+//Route::POST('/upload_report', [AdminController::class, 'generateDocRep']);
 Route::get('/add_doctor_view', [AdminController::class, 'addview']);
 Route::get('/add_report_view', [AdminController::class, 'addReportView']);
 Route::POST('/upload_doctor', [AdminController::class, 'uploadDoctor']);
@@ -64,4 +65,4 @@ Route::delete('/delete-appointment/{appointment}',[AdminController::class, 'dele
 Route::post('/approved/{id}', [AdminController::class, 'approved']);
 //Route::get('/cancelled/{id}', [AdminController::class, 'cancelled']);
 Route::get('export-docx', [HomeController::class, 'exportDocx'])->name('export-docx');
-Route::get('generateDocRep', [AdminController::class, 'generateDocRep'])->name('generateDocRep');
+//Route::post('generateDocRep', [AdminController::class, 'generateDocRep'])->name('generateDocRep');
