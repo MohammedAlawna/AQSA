@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\User;
 use App\Models\Appointment;
 use App\Models\Report;
-
+use App\Http\Controllers\HomeController;
 
 class AdminController extends Controller
 {
+   
 
     
     public function addview() {
@@ -40,61 +40,70 @@ class AdminController extends Controller
     }
 
     public function upload(Request $request){
-        $appointment = new appointment; 
-        $report = new report;
+        // $appointment = new appointment; 
+        // $report = new report;
 
 
         //TODO:: Retrieve appointment for that specific patient
         //If patient name in that appointment, then assign values here!
-        if(Auth::id()){
-           // $patientID = Auth::user()->id;  replace to userName
+      
+        // $patientID = Auth::user()->id;  replace to userName
+        
+        $nameOfPatient = $request->patientname;
+        //Then check with userName..
+        $appointDb = appointment::where('patientname', $nameOfPatient)->get();
+        
+        echo $appointDb[0]->id;
 
-           //Then check with userName..
-            $appoint = appointment::where('user_id', $patientID)->get();
-            $report->appointid =$appoint->id;
-        }
-
-       // $report->appointid = $appointment->id;
+        //$appoint = appointment::where('patientname', $nameOfPatient)->get();
+        $report->adate = $appointDb[0]->adate;
+        $report->appt = $appointDb[0]->appt;  
+        $report->doctor = $appointDb[0]->_doctor; 
+        $report->appointid = $appointDb[0]->id;
+        
+        // $report->appointid = $appointment->id;
         $report->patientname = $request->patientname;
         $report->prescription = $request->prescription;
         $report->details = $request->details;
         $report->symptoms = $request->symptoms;
         $report->age = $request->age; 
         $report->gender = $request->gender; 
-        $report->adate = $appointment->adate;
-        $report->appt = $appointment->appt; 
-        $report->doctor = $appointment->_doctor; 
+       
 
         $report->save();
        // $appointment->save();
-        return redirect()->back()->with('message', 'Doctor Report has been added!');
 
+        //Export The Report (DOC File).
+        //exportDocx();
+
+        return redirect()->back()->with('message', 'Doctor Report has been added!');
     }
 
-    public function exportDocx() { //Doctor View Report
-        $report = new report;
+    public function generateDocRep() { //Doctor View Report
         $filename = 'docfile.doc';
         header("Content-Type: application/force-download");
         header( "Content-Disposition: attachment; filename=".basename($filename));
         header( "Content-Description: File Transfer");
         @readfile($filename);
 
+
+      //  $name = $_GET['patientname'];
         //Retrieve Data from DB / Request and embed them here inside the word file (report)
 
-        $htmlContent = '<html>
+        $htmlContent ='<html>
                         <head></head>
                         <body>
                         <h1>Report Heading: Add your title</h1>
-                        <p> {{$report->patientname}}} </p>
+                        <p> $report->patientname </p>
                         <p>Attached you will find data of your generated report dude!</p>
                         </body>
-                        </html>';
+                        </html>'. ' '. 'Hell';
 
         //You can do this as well (In that way..)
-        $patientName = $report->patientname;
-        echo $patientName;
         // $content = view('users.resume.resume-content', compact('data'))->render();
         echo $htmlContent;
+
+       // echo $name;
 }
 
 public function exportPatientReport(){

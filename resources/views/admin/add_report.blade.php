@@ -104,8 +104,13 @@
     
           <div style="padding: 15px">
    
-    <input type="submit" class="btn btn-success">
-   </div>
+    <button class="btn btn-danger" type="submit">Save Report To DB</button>
+    <a class="btn btn-success" href="{{ route('generateDocRep') }}">Generate Doctor View Report</a>
+    
+    <button class="btn btn-warning">Generate Patient View Report</button>
+    <button class="btn btn-info">Push Data To Lab</button>
+
+  </div>
     </div>
 
 
