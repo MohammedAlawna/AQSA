@@ -36,13 +36,85 @@
       <!-- partial -->
      @include('admin.navbar')
         <!-- partial -->
+  
 
-        <div class="container-fluid page-body-wrapper">
-        <div class="container" align="center" style="padding-top: 100px">
+        <div class="container-fluid page-body-wrapper row" style="margin-top: 25px;">
+
+
+        
+        @if(session()->has('message'))
+            <div class="alert alert-success">
+                <button class="close" type="button" data-dismiss="alert"></button>
+                {{session()->get('message')}}
+            </div>
+
+            @endif
+
+        <form action="{{url('upload_report')}}" method="POST">
+            @csrf
+            <div style="padding: 15px">
+            <label for="patientname">Select Patient</label>
+        <select class="form-select" aria-label="Default select example" name="patientname" id="patientname" style="text-color: black;">
+              <option>--Select Patient Name--</option>
+              @foreach($user as $users)
+              <option value="{{$users->name}}">{{$users->name}}</option>
+              @endforeach
+            </select>
+    </div>
+
+    <div style="padding: 15px">
+    <label for="age">Age</label>
+    <input class="form-control" aria-describedby="basic-addon1" name="age" type="number">
+    </div>
+
+    <div style="padding: 15px">
+  <label for="gender">Gender</label>
+  <select class="form-select" aria-label="Default select example" name="gender" id="gender">
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+  
+  </div>
+
+  
+    <div style="padding: 15px">
+   
+    </div>
+
+   
+
+    <div style="padding: 15px">
+  
+    </div>
+    
+    
+    
+  <div style="padding: 15px">
+   
+  </div>
+    
+
+          <div style="padding: 15px">
+    <label>Lab Results </label>
+            <textarea id="form7" name="labRes" class="form-control" rows="8"
+         style="background-color:white;color:black" placeholder="Please Enter The Examination Results Here.."></textarea>
+        
+
+    </div>
+
+          <div style="padding: 15px" >
 
        
-   <h1>Lab Department</h1>
-   <p>The mini-laboratory management system would be implemented here in this page.</p>
+        </div>
+    
+          <div style="padding: 15px">
+    <button class="btn btn-success" type="submit">Save Patient Data</button>
+  </div>
+
+    </div>
+
+
+            </form>
 
 </div>
 
