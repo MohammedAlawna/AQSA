@@ -101,6 +101,15 @@
          style="background-color:white;color:black" placeholder="Symptoms..."></textarea>
           </div>
     
+          <div style="padding: 15px" >
+
+          <div id="labForm" style="display: none;">
+          <label>Lab Test</label>
+            <textarea name="symptoms" class="md-textarea form-control" rows="3"
+         style="background-color:white;color:black" placeholder="Please Write Your LAb Test Here.. (Also write any additional comments her)"></textarea>
+    </div>  
+        </div>
+    
           <div style="padding: 15px">
    
     <button class="btn btn-danger" type="submit">Save Report To DB</button>

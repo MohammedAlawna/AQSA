@@ -105,7 +105,13 @@ class AdminController extends Controller
       // return redirect()->back()->with('message', 'Doctor Report has been added!');
     }
 
-   
+
+    public function processLabDepartment(){
+       $labForm = ('#labForm').show();
+
+       echo $labForm;
+       debug_to_console($labForm);
+    }
 
     public function generateDocRep() { 
         //Doctor View Report       
