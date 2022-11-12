@@ -8,7 +8,9 @@ use App\Models\Doctor;
 use App\Models\User;
 use App\Models\Appointment;
 use App\Models\Report;
+use App\Models\Labpatient;
 use App\Http\Controllers\HomeController;
+
 
 class AdminController extends Controller
 {
@@ -113,9 +115,15 @@ class AdminController extends Controller
 
        if($isLabTest == "true"){
         //Patient Info And Lab Test Should Be Added To Form.
-        // You Should Find A Way To Add Lab Tests Here.
+        //You Should Find A Way To Add Lab Tests Here.
+        $labpatient = new labpatient;
+        $labpatient->patientname = $request->patientname;
+        $labpatient->age = $request->age;
+        $labpatient->gender = $request->gender;
+        $labpatient->doctor = $appointDb[0]->_doctor;
+        $labpatient->labtests = $request->labDep;
 
-        echo "Lab True";
+        $labpatient->save();
        }
 
        if($isPatientReport == "true"){
@@ -133,10 +141,7 @@ class AdminController extends Controller
 
 
     public function push_lab(){
-       $labForm = ('#labForm').show();
-
-       echo $labForm;
-       debug_to_console($labForm);
+       
     }
 
     public function generateDocRep() { 
