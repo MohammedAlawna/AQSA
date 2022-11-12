@@ -101,12 +101,38 @@ class AdminController extends Controller
         $_gender = $request->gender; 
         $_age = $request->age;
 
-        $this->createDoctorReport($nameOfPatient, $presc, $symp, $_gender, $_age );
+        $isDoctorReport = $request->doctorReport;
+        $isPatientReport = $request->patientReport;
+        $isLabTest = $request->labTest;
+
+        
+        //Form Check Var
+       if($isDoctorReport == "true"){
+        $this->createDoctorReport($nameOfPatient, $presc, $symp, $_gender, $_age);
+       }
+
+       if($isLabTest == "true"){
+        //Patient Info And Lab Test Should Be Added To Form.
+        // You Should Find A Way To Add Lab Tests Here.
+
+        echo "Lab True";
+       }
+
+       if($isPatientReport == "true"){
+        echo "Patient Report True";
+        // $this->generateUserReport();
+       }
+
+       
+
+       
+       
+        
       // return redirect()->back()->with('message', 'Doctor Report has been added!');
     }
 
 
-    public function processLabDepartment(){
+    public function push_lab(){
        $labForm = ('#labForm').show();
 
        echo $labForm;

@@ -54,7 +54,7 @@
             @csrf
             <div style="padding: 15px">
             <label for="patientname">Select Patient</label>
-        <select class="custom-select" name="patientname" id="patientname" style="text-color: black;">
+        <select class="form-select" aria-label="Default select example" name="patientname" id="patientname" style="text-color: black;">
               <option>--Select Patient Name--</option>
               @foreach($user as $users)
               <option value="{{$users->name}}">{{$users->name}}</option>
@@ -64,12 +64,12 @@
 
     <div style="padding: 15px">
     <label for="age">Age</label>
-    <input name="age" type="number">
+    <input class="form-control" aria-describedby="basic-addon1" name="age" type="number">
     </div>
 
     <div style="padding: 15px">
   <label for="gender">Gender</label>
-  <select name="gender" id="gender">
+  <select class="form-select" aria-label="Default select example" name="gender" id="gender">
     <option value="male">Male</option>
     <option value="female">Female</option>
   </select>
@@ -77,7 +77,7 @@
   </div>
     <div style="padding: 15px">
     <label>Prescription</label>
-        <textarea id="form7" name="prescription" class="md-textarea form-control" rows="3" cols="7"
+        <textarea class="form-control" id="form7" name="prescription" rows="3" cols="7"
          style="background-color:white;color:black" placeholder="Prescription..."></textarea>
 
     </div>
@@ -86,36 +86,66 @@
 
     <div style="padding: 15px">
     <label>Details</label>
-            <textarea id="form7" name="details" class="md-textarea form-control" rows="8"
+            <textarea id="form7" name="details" class="form-control" rows="8"
          style="background-color:white;color:black" placeholder="Details..."></textarea>
         
 
     </div>
+
+    
  
     
     
     <div style="padding: 15px">
    
     <label>Symptoms</label>
-            <textarea id="form7" name="symptoms" class="md-textarea form-control" rows="3"
+            <textarea id="form7" name="symptoms" class="form-control" rows="3"
          style="background-color:white;color:black" placeholder="Symptoms..."></textarea>
           </div>
     
+
+          <div style="padding: 15px">
+    <label>Lab Test (If Applicable)</label>
+            <textarea id="form7" name="labDep" class="form-control" rows="8"
+         style="background-color:white;color:black" placeholder="Details..."></textarea>
+        
+
+    </div>
+
           <div style="padding: 15px" >
 
-          <div id="labForm" style="display: none;">
-          <label>Lab Test</label>
-            <textarea name="symptoms" class="md-textarea form-control" rows="3"
-         style="background-color:white;color:black" placeholder="Please Write Your LAb Test Here.. (Also write any additional comments her)"></textarea>
+          <div id="labForm">
+          <label for="doctorReport">Create Doctor Report?</label>
+          <select class="form-select" aria-label="Default select example" name="doctorReport" id="doctorReport">
+            <option value="true">Yes</option>
+            <option value="flase">No</option>
+          </select>
+
+          <br>
+          <label for="patientReport">Create Patient Report?</label>
+          <select class="form-select" aria-label="Default select example" name="patientReport" id="patientReport">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+<br>
+
+          <label for="labTest">Push To Lab?</label>
+          <select class="form-select" aria-label="Default select example" name="labTest" id="labTest">
+            <option value="true">Yes</option>
+            <option value="flase">No</option>
+          </select>
+
+        
+
     </div>  
         </div>
     
           <div style="padding: 15px">
    
-    <button class="btn btn-danger" type="submit">Save Report To DB</button>
-    <a class="btn btn-primary" href="{{ route('upload_report') }}">Download DOC</a>
-    <button class="btn btn-warning">Generate Patient View Report</button>
-    <button class="btn btn-info">Push Data To Lab</button>
+    <button class="btn btn-success" id="genReport" type="submit">Save to DB</button>
+    <!-- <button class="btn btn-warning" id="pushLab" type="submit">Generate Lab View Report.</button>
+   
+    <button class="btn btn-info">Generate Patient View Report</button> -->
 
   </div>
     </div>

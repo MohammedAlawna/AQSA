@@ -47,8 +47,6 @@ Route::POST('/upload_guest_appointment', [HomeController::class, 'guestUploadApp
 Route::get('/myappointment', [HomeController::class, 'myappointment']);
 
 //Push Lab Data
-Route::get('export-docx', [HomeController::class, 'exportDocx'])->name('export-docx');
-
 
 
 
