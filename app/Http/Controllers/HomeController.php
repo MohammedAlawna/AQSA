@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Appointment;
+use App\Models\Report;
+use App\Models\Labpatient;
+use App\Http\Controllers\AdminController;
+
 
 class HomeController extends Controller
 {
@@ -26,16 +30,16 @@ class HomeController extends Controller
             else if(Auth::user()->usertype == '2'){
                 //Secretary.
                 error_log("Some Message Here..");
-                goToSecretaryDashboard();
+                $this->goToSecretaryDashboard();
             }
             else if(Auth::user()->usertype == '3'){
                 //Lab Technician.
-                return view('admin.secret');
-                goToLabTechnicianDashboard();
+                return view('admin.lab_depart');
+                $this->goToLabTechnicianDashboard();
             }
             else if(Auth::user()->usertype == '4'){
                 //OPTIONAL:: Admin.
-                goToAdminDashboard();
+                $this->goToAdminDashboard();
             }
 
         }
@@ -169,24 +173,28 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function exportDocx() {
-            $filename = 'docfile.doc';
-            header("Content-Type: application/force-download");
-            header( "Content-Disposition: attachment; filename=".basename($filename));
-            header( "Content-Description: File Transfer");
-            @readfile($filename);
+     public function exportDocx(Request $request) {
+        $nameOfPatient = $request->patientname;
+        echo "Hi Narl";
+        //debug_to_console($nameOfPatient);
+
+            //  $filename = 'docfile.doc';
+            //  header("Content-Type: application/force-download");
+            //  header( "Content-Disposition: attachment; filename=".basename($filename));
+            //  header( "Content-Description: File Transfer");
+            //  @readfile($filename);
     
-            $htmlContent = '<html>
-                            <head></head>
-                            <body>
-                            <h1>Report Heading: Add your title</h1>
-                            <p>Attached you will find data of your generated report dude!</p>
-                            </body>
-                            </html>';
+            //  $htmlContent = '<html>
+            //                  <head></head>
+            //                  <body>
+            //                  <h1>Report Heading: Add your title</h1>
+            //                  <p>Attached you will find data of your generated report dude!</p>
+            //                  </body>
+            //                  </html>';
     
-            // $content = view('users.resume.resume-content', compact('data'))->render();
-            echo $htmlContent;
-    }
+            //  // $content = view('users.resume.resume-content', compact('data'))->render();
+            //  echo $htmlContent;
+     }
 
   /*  public function cancel_appoint($id) {
 

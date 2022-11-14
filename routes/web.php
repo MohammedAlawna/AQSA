@@ -60,4 +60,6 @@ Route::delete('/delete-appointment/{appointment}',[AdminController::class, 'dele
 Route::post('/approved/{id}', [AdminController::class, 'approved']);
 //Route::get('/cancelled/{id}', [AdminController::class, 'cancelled']);
 Route::get('export-docx', [HomeController::class, 'exportDocx'])->name('export-docx');
+//Route::get('save_patient', [AdminController::class, 'savePatient']);
+
 //Route::get('upload_report', [AdminController::class, 'createDoctorReport'])->name('upload_report');

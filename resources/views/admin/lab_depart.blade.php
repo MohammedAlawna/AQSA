@@ -39,8 +39,6 @@
   
 
         <div class="container-fluid page-body-wrapper row" style="margin-top: 25px;">
-
-
         
         @if(session()->has('message'))
             <div class="alert alert-success">
@@ -50,22 +48,25 @@
 
             @endif
 
+
         <form action="{{url('upload_report')}}" method="POST">
             @csrf
-            <div style="padding: 15px">
-            <label for="patientname">Select Patient</label>
-        <select class="form-select" aria-label="Default select example" name="patientname" id="patientname" style="text-color: black;">
+
+        <div style="padding: 15px">
+            <select class="form-select" aria-label="Default select example" name="patientname" id="patientname" style="text-color: black;">
               <option>--Select Patient Name--</option>
-              @foreach($user as $users)
-              <option value="{{$users->name}}">{{$users->name}}</option>
+              
+              @foreach($labpatient as $labpatients)
+              <option value="{{$labpatients->patientname}}">{{$labpatients->patientname}}</option>
               @endforeach
             </select>
     </div>
-
+    
     <div style="padding: 15px">
     <label for="age">Age</label>
     <input class="form-control" aria-describedby="basic-addon1" name="age" type="number">
     </div>
+
 
     <div style="padding: 15px">
   <label for="gender">Gender</label>
@@ -74,25 +75,10 @@
     <option value="female">Female</option>
   </select>
   
+
   </div>
 
-  
-    <div style="padding: 15px">
-   
-    </div>
 
-   
-
-    <div style="padding: 15px">
-  
-    </div>
-    
-    
-    
-  <div style="padding: 15px">
-   
-  </div>
-    
 
           <div style="padding: 15px">
     <label>Lab Results </label>
@@ -102,12 +88,10 @@
 
     </div>
 
-          <div style="padding: 15px" >
-
-       
-        </div>
-    
+        
           <div style="padding: 15px">
+          
+<a class="btn btn-primary" href="{{ route('export-docx') }}">Load Patient Data</a>
     <button class="btn btn-success" type="submit">Save Patient Data</button>
   </div>
 

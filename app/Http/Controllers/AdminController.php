@@ -34,10 +34,10 @@ class AdminController extends Controller
            $user = user::all();
             return view('admin.add_report', compact('user'));
         }
-        else {
-            return view('admin.denied');
-            //return redirect()->back();
-        }
+         else {
+             return view('admin.denied');
+             //return redirect()->back();
+         }
     }
 
     public function createDoctorReport($patientName, $presc, $symp, $gender, $age){
@@ -140,9 +140,13 @@ class AdminController extends Controller
     }
 
 
-    public function push_lab(){
-       
-    }
+    public function exportDocx(Request $request) {
+        //Update Patient Data.
+        $patientName = $request->patientname;
+        echo($patientName);
+        debug_to_console($patientName);
+}
+
 
     public function generateDocRep() { 
         //Doctor View Report       
@@ -192,15 +196,22 @@ public function exportPatientReport(){
         
     }
 
+   
+
     public function viewLabDepart(){
+        //Testing Only.
+        $labpatient = labpatient::all();
+        return view('admin.lab_depart', compact('labpatient'));
+        
         //User Lab Only!
         if(Auth::user()->usertype == "3"){
+
             return view('admin.lab_depart');
         }
-        else {
-            return view('admin.denied');
-            //return redirect()->back();
-        }
+        // else {
+        //     return view('admin.denied');
+        //     //return redirect()->back();
+        // }
         }
 
     public function uploadDoctor(Request $request) {
