@@ -174,9 +174,19 @@ class HomeController extends Controller
     }
 
      public function exportDocx(Request $request) {
-        $nameOfPatient = $request->patientname;
-        echo "Hi Narl";
-        //debug_to_console($nameOfPatient);
+        $nameOfPatient = $request->age;
+        $list = $request->labRes;
+        $labpatient = labpatient::all();
+        $requiredPatient = labpatient::where('patientname', $nameOfPatient)->get();
+        $uri = $request->path();
+        //$testList = $requiredPatient->labtests;
+        echo $uri;
+        //return view('admin.lab_depart', compact('labpatient'));
+     }
+
+  /* 
+  Deprecated Function()=>ExportDocx{
+    //debug_to_console($nameOfPatient);
 
             //  $filename = 'docfile.doc';
             //  header("Content-Type: application/force-download");
@@ -194,18 +204,6 @@ class HomeController extends Controller
     
             //  // $content = view('users.resume.resume-content', compact('data'))->render();
             //  echo $htmlContent;
-     }
-
-  /*  public function cancel_appoint($id) {
-
-        $data = appointment::find($id);
-     
-        
-
-    
-        $data->delete();
-        return redirect()->back();
-      
-
-    }*/
+  }
+  */
 }

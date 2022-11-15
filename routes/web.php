@@ -47,7 +47,7 @@ Route::POST('/upload_guest_appointment', [HomeController::class, 'guestUploadApp
 Route::get('/myappointment', [HomeController::class, 'myappointment']);
 
 //Push Lab Data
-
+Route::POST('/update_lab', [AdminController::class, 'updatePatientData']);
 
 
 //Route::POST('/add_report_view', [HomeController::class, 'upload_report']);

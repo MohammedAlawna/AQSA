@@ -136,7 +136,18 @@ class AdminController extends Controller
        
        
         
-      // return redirect()->back()->with('message', 'Doctor Report has been added!');
+       return redirect()->back()->with('message', 'Doctor Report has been added!');
+    }
+
+    public function updatePatientData(Request $request){
+      //  $labpatient = new labpatient;
+        $requiredName = $request->patientname;
+        $labpatient = labpatient::where('patientname', $requiredName)->get();
+        $labpatient[0]->labtests = $request->labRes;
+        $labpatient[0]->save();
+        return redirect()->back()->with('message', 'Patient Lab Tests Has Been Updated!');
+
+      
     }
 
 
