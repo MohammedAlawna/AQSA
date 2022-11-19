@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
   <style type="text/css">
       label {
           display: inline-block;
           width: 200px;
-      
-        }
+      }
   </style>
 
   @include('admin.css')
@@ -39,52 +39,61 @@
   
 
         <div class="container-fluid page-body-wrapper row" style="margin-top: 25px;">
+        
         @if(session()->has('message'))
             <div class="alert alert-success">
                 <button class="close" type="button" data-dismiss="alert"></button>
                 {{session()->get('message')}}
             </div>
+
             @endif
-        <form action="{{url('update_lab')}}" method="POST">
+
+
+        <form action="{{url('upload_report')}}" method="POST">
             @csrf
 
-
-            <div style="padding: 15px">
+        <div style="padding: 15px">
             <select class="form-select" aria-label="Default select example" name="patientname" id="patientname" style="text-color: black;">
               <option>--Select Patient Name--</option>
-
+              
               @foreach($labpatient as $labpatients)
               <option value="{{$labpatients->patientname}}">{{$labpatients->patientname}}</option>
               @endforeach
-             
             </select>
-             </div>
+    </div>
+    
+    <div style="padding: 15px">
+    <label for="age">Age</label>
+    <input class="form-control" aria-describedby="basic-addon1" name="age" type="number">
+    </div>
 
 
-        <div style="padding: 15px">
-            <select class="form-select" aria-label="Default select example" name="patientTests" id="patientname" style="text-color: black;">
-              <option>--Check Patients Tests--</option>
-
-              @foreach($labpatient as $labpatients)
-              <option value="{{$labpatients->patientname}}">{{$labpatients->patientname}} --- Tests: {{$labpatients->labtests}}</option>
-              @endforeach
-             
-            </select>
-             </div>
+    <div style="padding: 15px">
+  <label for="gender">Gender</label>
+  <select class="form-select" aria-label="Default select example" name="gender" id="gender">
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
   
+
+  </div>
+
 
 
           <div style="padding: 15px">
     <label>Lab Results </label>
-            <textarea style="color:white;" id="form7" name="labRes" class="form-control" rows="8"
+            <textarea id="form7" name="labRes" class="form-control" rows="8"
          style="background-color:white;color:black" placeholder="Please Enter The Examination Results Here.."></textarea>
-    </div>
-    
+        
 
-          <div style="padding: 15px;">
-          <!-- <a class="btn btn-primary" href="{{ route('export-docx') }}">Load Patient Data</a> -->
-          <button class="btn btn-success" type="submit">Save Patient Data</button>
-        </div>
+    </div>
+
+        
+          <div style="padding: 15px">
+          
+<a class="btn btn-primary" href="{{ route('export-docx') }}">Load Patient Data</a>
+    <button class="btn btn-success" type="submit">Save Patient Data</button>
+  </div>
 
     </div>
 
@@ -92,9 +101,7 @@
             </form>
 
 </div>
-<script>
-var name = 
-</script>
+
     <!-- container-scroller -->
     <!-- plugins:js -->
      @include('admin.script')
