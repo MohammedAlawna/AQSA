@@ -10,7 +10,6 @@ use App\Models\Appointment;
 use App\Models\Report;
 use App\Models\Labpatient;
 use App\Http\Controllers\HomeController;
-//require_once 'bootstrap.php';
 
 
 class AdminController extends Controller
