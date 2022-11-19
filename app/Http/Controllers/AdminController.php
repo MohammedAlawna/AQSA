@@ -10,12 +10,12 @@ use App\Models\Appointment;
 use App\Models\Report;
 use App\Models\Labpatient;
 use App\Http\Controllers\HomeController;
+//require_once 'bootstrap.php';
 
 
 class AdminController extends Controller
 {
 
-    
     public function addview() {
         /*If user is superadmin (alternatively, you could 
         do it for a super-doctor as well)*/
@@ -38,42 +38,6 @@ class AdminController extends Controller
              return view('admin.denied');
              //return redirect()->back();
          }
-    }
-
-    public function createDoctorReport($patientName, $presc, $symp, $gender, $age){
-        $filename = 'doctor_report.doc';
-        header("Content-Type: application/force-download");
-        header( "Content-Disposition: attachment; filename=".basename($filename));
-        header( "Content-Description: File Transfer");
-        @readfile($filename);
-
-        $reportSheet = "";
-        echo "Patient Name: ";
-        echo $patientName;
-        echo "\n";
-
-        echo "Gender: ";
-        echo $gender; 
-        echo "\n";
-
-        echo "Age: ";
-        echo $age; 
-        echo "\n";
-
-        echo "Prescription: ";
-        echo $presc;
-        echo "\n";
-
-        echo "Symptoms: "; 
-        echo $symp;
-        echo "\n";
-
-
-        // echo "Prescription: ";
-        // echo $prec;
-
-        // echo "Symptoms: ";
-        // echo $symp;
     }
    
 
@@ -107,36 +71,70 @@ class AdminController extends Controller
         $isPatientReport = $request->patientReport;
         $isLabTest = $request->labTest;
 
-        
-        //Form Check Var
-       if($isDoctorReport == "true"){
-        $this->createDoctorReport($nameOfPatient, $presc, $symp, $_gender, $_age);
-       }
+         //Form Check Var
+         if($isDoctorReport == "true"){
+          // $this->createDoctorReport($nameOfPatient, $presc, $symp, $_gender, $_age);
+          $this->createWordDocPHPWord();
+        }
+            
+        if($isLabTest == "true"){
+         //Patient Info And Lab Test Should Be Added To Form.
+         //You Should Find A Way To Add Lab Tests Here.
+         $labpatient = new labpatient;
+         $labpatient->patientname = $request->patientname;
+         $labpatient->age = $request->age;
+         $labpatient->gender = $request->gender;
+         $labpatient->doctor = $appointDb[0]->_doctor;
+         $labpatient->labtests = $request->labDep;
 
-       if($isLabTest == "true"){
-        //Patient Info And Lab Test Should Be Added To Form.
-        //You Should Find A Way To Add Lab Tests Here.
-        $labpatient = new labpatient;
-        $labpatient->patientname = $request->patientname;
-        $labpatient->age = $request->age;
-        $labpatient->gender = $request->gender;
-        $labpatient->doctor = $appointDb[0]->_doctor;
-        $labpatient->labtests = $request->labDep;
+         $labpatient->save();
+        }
 
-        $labpatient->save();
-       }
+        if($isPatientReport == "true"){
+         echo "Patient Report True";
+          //$this->generateUserReport();
+        }
 
-       if($isPatientReport == "true"){
-        echo "Patient Report True";
-        // $this->generateUserReport();
-       }
-
-       
-
-       
-       
-        
        return redirect()->back()->with('message', 'Doctor Report has been added!');
+    }
+
+    public function createDoctorReport($patientName, $presc, $symp, $gender, $age){
+
+        $filename = 'doctor_report.doc';
+        header("Content-Type: application/force-download");
+        header( "Content-Disposition: attachment; filename=".basename($filename));
+        header( "Content-Description: File Transfer");
+        @readfile($filename);
+
+        $reportSheet = "";
+        echo "Patient Name: ";
+        echo $patientName;
+        echo "\n";
+
+        echo "Gender: ";
+        echo $gender; 
+        echo "\n";
+
+        echo "Age: ";
+        echo $age; 
+        echo "\n";
+
+        echo "Prescription: ";
+        echo $presc;
+        echo "\n";
+
+        echo "Symptoms: "; 
+        echo $symp;
+        echo "\n";
+
+        
+         
+        // echo "Prescription: ";
+        // echo $prec;
+
+
+        // echo "Symptoms: ";
+        // echo $symp;
     }
 
     public function updatePatientData(Request $request){
@@ -146,8 +144,6 @@ class AdminController extends Controller
         $labpatient[0]->labtests = $request->labRes;
         $labpatient[0]->save();
         return redirect()->back()->with('message', 'Patient Lab Tests Has Been Updated!');
-
-      
     }
 
 
@@ -156,32 +152,6 @@ class AdminController extends Controller
         $patientName = $request->patientname;
         echo($patientName);
         debug_to_console($patientName);
-}
-
-
-    public function generateDocRep() { 
-        //Doctor View Report       
-        $filename = "Doctor_report.doc";
-        header("Content-Type: application/force-download");
-        header( "Content-Disposition: attachment; filename=".basename($filename));
-        header( "Content-Description: File Transfer");
-        @readfile($filename);
-
-         $htmlContent ='<html>
-                         <head></head>
-                         <body>
-                         <h1>Report Heading: Add your title</h1>
-                         <p> $report->patientname </p>
-                         <p>Attached you will find data of your generated report dude!</p>
-                         </body>
-                         </html>'. ' '. 'Hell';
-
-        echo $htmlContent;
-}
-
-public function exportPatientReport(){
-    //Patient View.
-    //TODO Code to be added later on.
 }
 
     public function addAppointmentView() {
@@ -208,7 +178,6 @@ public function exportPatientReport(){
     }
 
    
-
     public function viewLabDepart(){
         //Testing Only.
         $labpatient = labpatient::all();
@@ -260,6 +229,73 @@ public function exportPatientReport(){
         
         $data->save();
         return redirect()->back();
+    }
+
+    public function createWordDocPHPWord(){
+       // Creating the new document...
+$phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+/* Note: any element you append to a document must reside inside of a Section. */
+
+// Adding an empty Section to the document...
+$section = $phpWord->addSection();
+// Adding Text element to the Section having font styled by default...
+$section->addText(
+    '"Learn from yesterday, live for today, hope for tomorrow. '
+        . 'The important thing is not to stop questioning." '
+        . '(Albert Einstein)'
+);
+
+/*
+ * Note: it's possible to customize font style of the Text element you add in three ways:
+ * - inline;
+ * - using named font style (new font style object will be implicitly created);
+ * - using explicitly created font style object.
+ */
+
+// Adding Text element with font customized inline...
+$section->addText(
+    '"Great achievement is usually born of great sacrifice, '
+        . 'and is never the result of selfishness." '
+        . '(Napoleon Hill)',
+    array('name' => 'Tahoma', 'size' => 10)
+);
+
+// Adding Text element with font customized using named font style...
+$fontStyleName = 'oneUserDefinedStyle';
+$phpWord->addFontStyle(
+    $fontStyleName,
+    array('name' => 'Tahoma', 'size' => 10, 'color' => '1B2232', 'bold' => true)
+);
+$section->addText(
+    '"The greatest accomplishment is not in never falling, '
+        . 'but in rising again after you fall." '
+        . '(Vince Lombardi)',
+    $fontStyleName
+);
+
+// Adding Text element with font customized using explicitly created font style object...
+$fontStyle = new \PhpOffice\PhpWord\Style\Font();
+$fontStyle->setBold(true);
+$fontStyle->setName('Tahoma');
+$fontStyle->setSize(13);
+$myTextElement = $section->addText('"Believe you can and you\'re halfway there." (Theodor Roosevelt)');
+$myTextElement->setFontStyle($fontStyle);
+
+// Saving the document as OOXML file...
+$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+$objWriter->save('helloWorld.docx');
+
+// Saving the document as ODF file...
+$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
+$objWriter->save('helloWorld.odt');
+
+// Saving the document as HTML file...
+$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
+$objWriter->save('helloWorld.html');
+
+/* Note: we skip RTF, because it's not XML-based and requires a different example. */
+/* Note: we skip PDF, because "HTML-to-PDF" approach is used to create PDF documents. */
     }
    
 }

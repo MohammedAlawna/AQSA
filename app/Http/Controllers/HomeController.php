@@ -172,6 +172,7 @@ class HomeController extends Controller
         Appointment::find($appointment)->delete();
         return redirect()->back();
     }
+    
 
      public function exportDocx(Request $request) {
         $nameOfPatient = $request->age;
